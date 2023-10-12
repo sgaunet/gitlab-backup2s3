@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-gitlab-backup
+  namespace: backup
+data:
+  # GOCRYPT_KEY: "abcdefgh12345678"
+  # env vars for gitlab-backup
+  AWS_ACCESS_KEY_ID string: ""
+  AWS_SECRET_ACCESS_KEY string: ""
+  GITLABGROUPID: "123456789"
+  GITLABPROJECTID: "0"
+  GITLAB_TOKEN: "..."
+  # GITLAB_URI: "https://gitlab.com"
+  # LOCALPATH: ""
+  # POSTBACKUP: "gocrypt enc --i %INPUTFILE%"
+  # PREBACKUP: ""
+  S3BUCKETNAME: ""
+  S3BUCKETPATH: ""
+  S3ENDPOINT: ""
+  S3REGION: ""
+  # TMPDIR: "/tmp"
+

@@ -1,0 +1,45 @@
+# https://taskfile.dev
+version: '3'
+vars:
+  IMG: sgaunet/gitlab-backup2s3:latest
+  BINFILE: gitlab-backup2s3
+
+tasks:
+  default:
+    desc: "List tasks"
+    cmds:
+      - task -a
+
+  binary:
+    desc: "Build binary"
+    cmds:
+      - CGO_ENABLED=0 go build .
+
+  update-crt:
+    desc: "Update the crt file"
+    cmds:
+      - cp /etc/ssl/certs/ca-certificates.crt resources/etc/ssl/certs/ca-certificates.crt
+
+  image:
+    desc: "Build/push docker image"
+    deps: 
+    - binary
+    - update-crt
+    cmds:
+      - docker build . -t {{.IMG}}
+      - docker push {{.IMG}}
+
+  snapshot:
+    desc: "Create a snapshot release"
+    deps:
+      - update-crt
+    cmds:
+      - GITLAB_TOKEN="" goreleaser --clean --snapshot
+    
+  release:
+    desc: "Create a release"
+    deps:
+      - update-crt
+    cmds:
+      - GITLAB_TOKEN="" goreleaser --clean
+    

@@ -1,0 +1,34 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: gitlab-backup
+  namespace: backup
+  annotations:
+    kubernetes.io/change-cause: Initial creation
+spec:
+  schedule: "0 11 1 * *"
+  jobTemplate:
+    spec:
+      backoffLimit: 0  # Do not retry if job failed
+      template:
+        metadata:
+          labels:
+            app: gitlab-backup
+        spec:
+          containers:
+          - name: gitlab-backup
+            
+            image: sgaunet/gitlab-backup2s3:latest
+            envFrom:
+              - configMapRef:
+                  name: cm-gitlab-backup
+            resources:
+              requests:
+                memory: "60Mi"
+                cpu: "150m"
+              limits:
+                memory: "100Mi"
+                cpu: "200m"
+      
+            imagePullPolicy: Always
+          restartPolicy: OnFailure
