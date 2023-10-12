@@ -2,7 +2,7 @@ FROM alpine:3.17.2 AS alpine
 RUN wget -q https://github.com/sgaunet/gocrypt/releases/download/v1.2.0/gocrypt_1.2.0_linux_amd64 -O gocrypt && \
     chmod +x gocrypt
 
-FROM sgaunet/gitlab-backup:1.0.0 AS gitlab-backup-image
+FROM sgaunet/gitlab-backup:1.1.0 AS gitlab-backup-image
 
 FROM scratch
 LABEL description="Backup gitlab projects to a S3"
