@@ -5,7 +5,11 @@ RUN wget -q https://github.com/sgaunet/gocrypt/releases/download/v1.2.0/gocrypt_
 FROM sgaunet/gitlab-backup:1.3.0 AS gitlab-backup-image
 
 FROM scratch
-LABEL description="Backup gitlab projects to a S3"
+LABEL org.opencontainers.image.authors "sgaunet"
+LABEL org.opencontainers.image.description="Backup gitlab projects to a S3"
+LABEL org.opencontainers.image.documentation "https://github.com/sgaunet/gitlab-backup2s3"
+LABEL org.opencontainers.image.source "https://github.com/sgaunet/gitlab-backup2s3"
+LABEL org.opencontainers.image.licenses "MIT"
 
 COPY --from=alpine --chown=1000:1000 /tmp /tmp
 COPY --from=gitlab-backup-image /etc /etc
