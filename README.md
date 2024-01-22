@@ -3,11 +3,11 @@
 
 # gitlab-backup2s3
 
-gitlab-backup2s3 is an enhanced docker image to export gitlab projects, encrypt the archive and save them in a S3.
+gitlab-backup2s3 is an enhanced docker image to export gitlab projects, encrypt the archive (optional) and save them in a S3.
 
 You can use the binary but it will need some prerequisites :
 
-* [gocrypt](https://github.com/sgaunet/gocrypt) >= v1.2.0
+* [gocrypt](https://github.com/sgaunet/gocrypt) >= v1.2.0 (if you like to encrypt archives with AES)
 * [gitlab-backup](https://github.com/sgaunet/gitlab-backup) >= v1.0.0
 
 ## Configuration
@@ -32,4 +32,12 @@ It needs some environement variables to run:
 
 ## Example of deployment
 
-In the deploy folder, you will find manifests to deploy a cronjob in kubernetes.
+### raw kubernetes manifests
+
+In the [deploy/k8s folder](deploy/k8s/), you will find manifests to deploy a cronjob in kubernetes.
+
+### helm
+
+Another github project contains the helm chart. This is [https://github.com/sgaunet/helm-gitlab-backup2s3](https://github.com/sgaunet/helm-gitlab-backup2s3), check the README.
+
+[Configuration of the helm chart is available here.](https://github.com/sgaunet/helm-gitlab-backup2s3/blob/main/charts/gitlab-backup2s3/README.md)
