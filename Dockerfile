@@ -1,4 +1,4 @@
-FROM alpine:3.19.0 AS alpine
+FROM alpine:3.19.1 AS alpine
 RUN wget -q https://github.com/sgaunet/gocrypt/releases/download/v1.2.0/gocrypt_1.2.0_linux_amd64 -O gocrypt && \
     chmod +x gocrypt
 
