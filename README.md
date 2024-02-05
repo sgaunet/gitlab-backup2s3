@@ -30,6 +30,42 @@ It needs some environement variables to run:
 * AWS_SECRET_ACCESS_KEY: not mandatory if you associate an IAM role to the pod or ec2
 * AWS_ACCESS_KEY_ID: not mandatory too
 
+# Development
+
+This project is using :
+
+* Golang
+* [task for development](https://taskfile.dev/)
+* docker
+* [docker buildx](https://github.com/docker/buildx)
+* docker manifest
+* [goreleaser](https://goreleaser.com/)
+* [pre-commit](https://pre-commit.com/)
+
+There are hooks executed in the precommit stage. Once the project cloned on your disk, please install pre-commit:
+
+```
+brew install pre-commit
+```
+
+Install tools:
+
+```
+task dev:install-prereq
+```
+
+And install the hooks:
+
+```
+task dev:install-pre-commit
+```
+
+If you like to launch manually the pre-commmit hook:
+
+```
+task dev:pre-commit
+```
+
 ## Example of deployment
 
 ### raw kubernetes manifests

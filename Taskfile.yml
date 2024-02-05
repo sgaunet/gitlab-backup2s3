@@ -4,6 +4,9 @@ vars:
   IMG: sgaunet/gitlab-backup2s3:latest
   BINFILE: gitlab-backup2s3
 
+includes:
+  dev: ./Taskfile_dev.yml
+
 tasks:
   default:
     desc: "List tasks"
