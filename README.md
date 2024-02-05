@@ -1,5 +1,5 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/sgaunet/gitlab-backup2s3)](https://goreportcard.com/report/github.com/sgaunet/gitlab-backup2s3)
-
+[![Maintainability](https://api.codeclimate.com/v1/badges/6a67a6c0a15b3fad5da7/maintainability)](https://codeclimate.com/github/sgaunet/gitlab-backup2s3/maintainability)
 
 # gitlab-backup2s3
 
