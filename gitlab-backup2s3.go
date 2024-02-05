@@ -27,7 +27,7 @@ func main() {
 }
 
 func execCommand(cmdToExec []string) error {
-	cmd := exec.Command(cmdToExec[0], cmdToExec[1:]...)
+	cmd := exec.Command(cmdToExec[0], cmdToExec[1:]...) // #nosec G204
 	stderr, err := cmd.StderrPipe()
 	if err != nil {
 		return err
