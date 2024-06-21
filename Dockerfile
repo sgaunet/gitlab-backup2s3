@@ -12,7 +12,8 @@ LABEL org.opencontainers.image.source "https://github.com/sgaunet/gitlab-backup2
 LABEL org.opencontainers.image.licenses "MIT"
 
 COPY --from=alpine --chown=1000:1000 /tmp /tmp
-COPY --from=gitlab-backup-image /etc /etc
+COPY resources /
+COPY --from=alpine /etc/ssl /etc/ssl
 COPY --from=gitlab-backup-image --chown=1000:1000 /usr/local/bin/gitlab-backup /usr/bin/gitlab-backup
 COPY --from=gocrypt /gocrypt /usr/bin/gocrypt
 COPY gitlab-backup2s3 /usr/bin/gitlab-backup2s3
