@@ -53,22 +53,24 @@ dockers:
     extra_files:
     - resources
 
-  # - use: buildx
-  #   goos: linux
-  #   goarch: arm64
-  #   image_templates:
-  #     - "sgaunet/{{ .ProjectName }}:{{ .Version }}-arm64v8"
-  #     - "sgaunet/{{ .ProjectName }}:latest-arm64v8"
-  #   build_flag_templates:
-  #     - "--platform=linux/arm64/v8"
-  #     - "--label=org.opencontainers.image.created={{.Date}}"
-  #     - "--label=org.opencontainers.image.title={{.ProjectName}}"
-  #     - "--label=org.opencontainers.image.revision={{.FullCommit}}"
-  #     - "--label=org.opencontainers.image.version={{.Version}}"
-  #     - "--build-arg=GOOS=linux"
-  #     - "--build-arg=GOARCH=arm64"
-  #   extra_files:
-  #   - resources
+  - use: buildx
+    goos: linux
+    goarch: arm64
+    image_templates:
+      - "sgaunet/{{ .ProjectName }}:{{ .Version }}-arm64v8"
+      - "sgaunet/{{ .ProjectName }}:latest-arm64v8"
+    build_flag_templates:
+      - "--platform=linux/arm64/v8"
+      - "--label=org.opencontainers.image.created={{.Date}}"
+      - "--label=org.opencontainers.image.title={{.ProjectName}}"
+      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+      - "--label=org.opencontainers.image.version={{.Version}}"
+      - "--label=org.opencontainers.image.description=Backup Gitlab repositories"
+      - "--label=org.opencontainers.image.licenses=MIT"
+      - "--label=org.opencontainers.image.source=https://github.com/sgaunet/gitlab-backup2s3"
+      - "--label=org.opencontainers.image.authors=Sylvain Gaunet"
+    extra_files:
+    - resources
 
 
 docker_manifests:
@@ -76,11 +78,11 @@ docker_manifests:
   - name_template: sgaunet/{{ .ProjectName }}:{{ .Version }}
     image_templates:
       - sgaunet/{{ .ProjectName }}:{{ .Version }}-amd64
-      # - sgaunet/{{ .ProjectName }}:{{ .Version }}-arm64v8
+      - sgaunet/{{ .ProjectName }}:{{ .Version }}-arm64v8
   - name_template: sgaunet/{{ .ProjectName }}:latest
     image_templates:
       - sgaunet/{{ .ProjectName }}:latest-amd64
-      # - sgaunet/{{ .ProjectName }}:latest-arm64v8
+      - sgaunet/{{ .ProjectName }}:latest-arm64v8
 
 changelog:
   sort: asc
