@@ -44,11 +44,14 @@ dockers:
       - "--label=org.opencontainers.image.title={{.ProjectName}}"
       - "--label=org.opencontainers.image.revision={{.FullCommit}}"
       - "--label=org.opencontainers.image.version={{.Version}}"
+      - "--label=org.opencontainers.image.description=Backup Gitlab repositories"
+      - "--label=org.opencontainers.image.licenses=MIT"
+      - "--label=org.opencontainers.image.source=https://github.com/sgaunet/gitlab-backup2s3"
+      - "--label=org.opencontainers.image.authors=Sylvain Gaunet"
       - "--build-arg=GOOS=linux"
       - "--build-arg=GOARCH=amd64"
     extra_files:
     - resources
-#     - cots
 
   # - use: buildx
   #   goos: linux
@@ -66,7 +69,6 @@ dockers:
   #     - "--build-arg=GOARCH=arm64"
   #   extra_files:
   #   - resources
-#     - cots
 
 
 docker_manifests:
