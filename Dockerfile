@@ -2,7 +2,7 @@ FROM alpine:3.20.1 as alpine
 
 FROM sgaunet/gocrypt:1.5.0 as gocrypt
 
-FROM sgaunet/gitlab-backup:1.4.1 AS gitlab-backup-image
+FROM sgaunet/gitlab-backup:1.5.0 AS gitlab-backup-image
 
 FROM scratch
 LABEL org.opencontainers.image.authors "sgaunet"
