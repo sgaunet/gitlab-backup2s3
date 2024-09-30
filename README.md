@@ -2,7 +2,7 @@
 [![GitHub release](https://img.shields.io/github/release/sgaunet/gitlab-backup2s3.svg)](https://github.com/sgaunet/gitlab-backup2s3/releases/latest)
 [![Maintainability](https://api.codeclimate.com/v1/badges/6a67a6c0a15b3fad5da7/maintainability)](https://codeclimate.com/github/sgaunet/gitlab-backup2s3/maintainability)
 ![GitHub Downloads](https://img.shields.io/github/downloads/sgaunet/gitlab-backup2s3/total)
-[![License](https://img.shields.io/github/license/sgaunet/gitlab-backup2s3.svg)]
+[![License](https://img.shields.io/github/license/sgaunet/gitlab-backup2s3.svg)](LICENSE)
 
 # gitlab-backup2s3
 
