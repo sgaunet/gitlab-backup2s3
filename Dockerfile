@@ -1,4 +1,4 @@
-FROM alpine:3.20.3 as alpine
+FROM alpine:3.21.2 as alpine
 
 FROM sgaunet/gocrypt:1.5.0 as gocrypt
 
