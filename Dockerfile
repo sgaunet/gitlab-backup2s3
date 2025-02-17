@@ -1,6 +1,6 @@
 FROM alpine:3.21.2 as alpine
 
-FROM sgaunet/gocrypt:1.5.0 as gocrypt
+FROM sgaunet/gocrypt:1.5.1 as gocrypt
 
 FROM sgaunet/gitlab-backup:1.6.0 AS gitlab-backup-image
 
