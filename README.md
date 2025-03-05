@@ -1,6 +1,8 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/sgaunet/gitlab-backup2s3)](https://goreportcard.com/report/github.com/sgaunet/gitlab-backup2s3)
 [![GitHub release](https://img.shields.io/github/release/sgaunet/gitlab-backup2s3.svg)](https://github.com/sgaunet/gitlab-backup2s3/releases/latest)
 ![GitHub Downloads](https://img.shields.io/github/downloads/sgaunet/gitlab-backup2s3/total)
+![Test Coverage](https://raw.githubusercontent.com/wiki/sgaunet/gitlab-backup2s3/coverage-badge.svg)
+[![GoDoc](https://godoc.org/github.com/sgaunet/gitlab-backup2s3?status.svg)](https://godoc.org/github.com/sgaunet/gitlab-backup2s3)
 [![License](https://img.shields.io/github/license/sgaunet/gitlab-backup2s3.svg)](LICENSE)
 
 # gitlab-backup2s3
