@@ -26,8 +26,12 @@ func NewApp() *App {
 }
 
 // SetLogger sets the logger
-func (a *App) SetLogger(logger logger.Logger) {
-	a.logger = logger
+func (a *App) SetLogger(log logger.Logger) {
+	if log == nil {
+		a.logger = logger.NoLogger()
+		return
+	}
+	a.logger = log
 }
 
 // SetBackupCmd sets the backup command
