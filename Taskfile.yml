@@ -13,6 +13,11 @@ tasks:
     cmds:
       - task -a
 
+  linter:
+    desc: "Run linter"
+    cmds:
+      - golangci-lint run --timeout 5m
+
   binary:
     desc: "Build binary"
     cmds:

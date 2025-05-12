@@ -35,7 +35,7 @@ func TestSetLoggerNil(t *testing.T) {
 	if a == nil {
 		t.Fatalf("Expected non-nil app, got nil")
 	}
-	a.SetLogger(nil)
+	a.SetLogger(nil) // now accepts *logger.Logger as nil
 	a.SetBackupCmd([]string{"echo", "hello"})
 	err := a.Run()
 	if err != nil {
