@@ -11,8 +11,22 @@ gitlab-backup2s3 is an enhanced docker image to export gitlab projects, encrypt 
 
 You can use the binary but it will need some prerequisites :
 
-* [gocrypt](https://github.com/sgaunet/gocrypt) >= v1.2.0 (if you like to encrypt archives with AES)
+* [gocrypt](https://github.com/sgaunet/gocrypt) >= v2.0.0 (if you like to encrypt archives with AES)
 * [gitlab-backup](https://github.com/sgaunet/gitlab-backup) >= v1.0.0
+
+## Version Compatibility
+
+⚠️ **Important Breaking Change** ⚠️
+
+Version 2 of **gocrypt** (v2) introduced AES GCM (Galois/Counter Mode) encryption, which breaks compatibility with files encrypted using version 1 (v1).
+
+- Files encrypted with v1 **cannot** be decrypted with v2
+- Files encrypted with v2 **cannot** be decrypted with v1
+
+This incompatibility is due to the fundamental change in the encryption mode from v1 to v2. AES GCM provides better security with authenticated encryption but requires a different format that is not backwards compatible.
+
+Version 2 of **gocrypt** is not compatible with version 1. If you have files encrypted with v1, you will need to decrypt them using the v1 version of **gocrypt** before you can use them with v2. Version 2 of gitlab-backup2s3 uses v2 of gocrypt.
+Version 1 of **gitlab-backup2s3** is compatible with version 1 of **gocrypt**. 
 
 ## Configuration
 
