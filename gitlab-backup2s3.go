@@ -1,3 +1,4 @@
+// Package main is the entry point for gitlab-backup2s3.
 package main
 
 import (

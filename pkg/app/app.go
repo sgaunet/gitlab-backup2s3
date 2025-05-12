@@ -1,3 +1,4 @@
+// Package app contains the main application logic for gitlab-backup2s3.
 package app
 
 import (
@@ -9,13 +10,13 @@ import (
 	"github.com/sgaunet/gitlab-backup2s3/pkg/logger"
 )
 
-// App is the main application
+// App is the main application.
 type App struct {
 	logger    logger.Logger
 	backupCmd []string
 }
 
-// NewApp creates a new App
+// NewApp creates a new App.
 func NewApp() *App {
 	return &App{
 		logger: logger.NoLogger(),
@@ -25,7 +26,7 @@ func NewApp() *App {
 	}
 }
 
-// SetLogger sets the logger
+// SetLogger sets the logger.
 func (a *App) SetLogger(log logger.Logger) {
 	if log == nil {
 		a.logger = logger.NoLogger()
@@ -34,13 +35,25 @@ func (a *App) SetLogger(log logger.Logger) {
 	a.logger = log
 }
 
-// SetBackupCmd sets the backup command
-// Use this method for testing purposes
+// SetBackupCmd sets the backup command.
+// Use this method for testing purposes.
 func (a *App) SetBackupCmd(backupCmd []string) {
 	a.backupCmd = backupCmd
 }
 
-// execCommand executes a command
+// Run executes the application.
+func (a *App) Run() error {
+	a.logger.Info("Execute gitlab-backup")
+	err := a.execCommand(a.backupCmd)
+	if err != nil {
+		a.logger.Error("Error executing gitlab-backup", slog.String("error", err.Error()))
+		return err
+	}
+	return nil
+}
+
+// execCommand executes a command.
+// It wraps all errors from external packages.
 func (a *App) execCommand(cmdToExec []string) error {
 	cmd := exec.Command(cmdToExec[0], cmdToExec[1:]...) // #nosec G204
 	stderr, err := cmd.StderrPipe()
@@ -71,16 +84,8 @@ func (a *App) execCommand(cmdToExec []string) error {
 		}
 	}()
 	err = cmd.Wait()
-	return err
-}
-
-// Run executes the application
-func (a *App) Run() error {
-	a.logger.Info("Execute gitlab-backup")
-	err := a.execCommand(a.backupCmd)
 	if err != nil {
-		a.logger.Error("Error executing gitlab-backup", slog.String("error", err.Error()))
-		return err
+		return fmt.Errorf("error waiting for command: %w", err)
 	}
 	return nil
 }
