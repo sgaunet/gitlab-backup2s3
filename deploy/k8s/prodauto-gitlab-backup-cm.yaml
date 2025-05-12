@@ -13,7 +13,7 @@ data:
   GITLAB_TOKEN: "..."
   # GITLAB_URI: "https://gitlab.com"
   # LOCALPATH: ""
-  # POSTBACKUP: "gocrypt enc --i %INPUTFILE%"
+  # POSTBACKUP: 'gocrypt enc --i %INPUTFILE%'
   # PREBACKUP: ""
   S3BUCKETNAME: ""
   S3BUCKETPATH: ""
