@@ -32,8 +32,8 @@ dockers:
     goos: linux
     goarch: amd64
     image_templates:
-      - "sgaunet/{{ .ProjectName }}:{{ .Version }}-amd64"
-      - "sgaunet/{{ .ProjectName }}:latest-amd64"
+      - "ghcr.io/sgaunet/{{ .ProjectName }}:{{ .Version }}-amd64"
+      - "ghcr.io/sgaunet/{{ .ProjectName }}:latest-amd64"
     build_flag_templates:
       - "--platform=linux/amd64"
       - "--label=org.opencontainers.image.created={{.Date}}"
@@ -42,7 +42,7 @@ dockers:
       - "--label=org.opencontainers.image.version={{.Version}}"
       - "--label=org.opencontainers.image.description=Backup Gitlab repositories"
       - "--label=org.opencontainers.image.licenses=MIT"
-      - "--label=org.opencontainers.image.source=https://github.com/sgaunet/gitlab-backup2s3"
+      - "--label=org.opencontainers.image.source=https://github.com/ghcr.io/sgaunet/gitlab-backup2s3"
       - "--label=org.opencontainers.image.authors=Sylvain Gaunet"
       - "--build-arg=GOOS=linux"
       - "--build-arg=GOARCH=amd64"
@@ -53,8 +53,8 @@ dockers:
     goos: linux
     goarch: arm64
     image_templates:
-      - "sgaunet/{{ .ProjectName }}:{{ .Version }}-arm64v8"
-      - "sgaunet/{{ .ProjectName }}:latest-arm64v8"
+      - "ghcr.io/sgaunet/{{ .ProjectName }}:{{ .Version }}-arm64v8"
+      - "ghcr.io/sgaunet/{{ .ProjectName }}:latest-arm64v8"
     build_flag_templates:
       - "--platform=linux/arm64/v8"
       - "--label=org.opencontainers.image.created={{.Date}}"
@@ -63,7 +63,7 @@ dockers:
       - "--label=org.opencontainers.image.version={{.Version}}"
       - "--label=org.opencontainers.image.description=Backup Gitlab repositories"
       - "--label=org.opencontainers.image.licenses=MIT"
-      - "--label=org.opencontainers.image.source=https://github.com/sgaunet/gitlab-backup2s3"
+      - "--label=org.opencontainers.image.source=https://github.com/ghcr.io/sgaunet/gitlab-backup2s3"
       - "--label=org.opencontainers.image.authors=Sylvain Gaunet"
     extra_files:
     - resources
@@ -71,14 +71,14 @@ dockers:
 
 docker_manifests:
   # https://goreleaser.com/customization/docker_manifest/
-  - name_template: sgaunet/{{ .ProjectName }}:{{ .Version }}
+  - name_template: ghcr.io/sgaunet/{{ .ProjectName }}:{{ .Version }}
     image_templates:
-      - sgaunet/{{ .ProjectName }}:{{ .Version }}-amd64
-      - sgaunet/{{ .ProjectName }}:{{ .Version }}-arm64v8
-  - name_template: sgaunet/{{ .ProjectName }}:latest
+      - ghcr.io/sgaunet/{{ .ProjectName }}:{{ .Version }}-amd64
+      - ghcr.io/sgaunet/{{ .ProjectName }}:{{ .Version }}-arm64v8
+  - name_template: ghcr.io/sgaunet/{{ .ProjectName }}:latest
     image_templates:
-      - sgaunet/{{ .ProjectName }}:latest-amd64
-      - sgaunet/{{ .ProjectName }}:latest-arm64v8
+      - ghcr.io/sgaunet/{{ .ProjectName }}:latest-amd64
+      - ghcr.io/sgaunet/{{ .ProjectName }}:latest-arm64v8
 
 changelog:
   sort: asc
