@@ -51,6 +51,7 @@ It needs some environement variables to run:
 * S3BUCKETPATH
 * AWS_SECRET_ACCESS_KEY: not mandatory if you associate an IAM role to the pod or ec2
 * AWS_ACCESS_KEY_ID: not mandatory too
+* EXPORT_TIMEOUT_MIN: default timeout export in minutes (default "10")
 
 # Development
 
