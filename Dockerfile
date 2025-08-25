@@ -1,6 +1,6 @@
 FROM alpine:3.22.1 AS alpine
 
-FROM ghcr.io/sgaunet/gocrypt:2.0.0 AS gocrypt
+FROM ghcr.io/sgaunet/gocrypt:2.0.2 AS gocrypt
 
 FROM ghcr.io/sgaunet/gitlab-backup:1.14.0 AS gitlab-backup-image
 
