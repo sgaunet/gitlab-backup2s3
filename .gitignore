@@ -1,4 +1,3 @@
-dist
-gitlab-backup2s3
-.task
-tst
+/dist
+/gitlab-backup2s3
+/.task
