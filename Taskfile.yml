@@ -13,7 +13,7 @@ tasks:
     cmds:
       - task -a
 
-  linter:
+  lint:
     desc: "Run linter"
     cmds:
       - golangci-lint run --timeout 5m
