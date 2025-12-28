@@ -15,6 +15,9 @@ type Logger interface {
 	Error(msg string, args ...any)
 }
 
+// Compile-time assertion that *slog.Logger implements Logger interface
+var _ Logger = (*slog.Logger)(nil)
+
 // NewLogger creates a new logger
 // logLevel is the level of logging
 // Possible values of logLevel are: "debug", "info", "warn", "error"
