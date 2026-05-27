@@ -18,6 +18,10 @@ You can use the binary but it will need some prerequisites :
 * [gocrypt](https://github.com/sgaunet/gocrypt) >= v2.0.0 (if you like to encrypt archives with AES)
 * [gitlab-backup](https://github.com/sgaunet/gitlab-backup) >= v1.0.0
 
+## Restoring a backup
+
+The [gitlab-backup](https://github.com/sgaunet/gitlab-backup) project also ships a companion binary named **`gitlab-restore`**, which restores a GitLab project backup from the archive produced by `gitlab-backup` back into a GitLab instance. Use it when you need to recover a project from an archive previously stored in S3 by `gitlab-backup2s3` (decrypt it first with `gocrypt` if it was encrypted).
+
 ## Version Compatibility
 
 ⚠️ **Important Breaking Change** ⚠️
