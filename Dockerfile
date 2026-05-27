@@ -1,4 +1,5 @@
 FROM alpine:3.23.4 AS alpine
+RUN apk add --no-cache age
 
 FROM ghcr.io/sgaunet/gocrypt:2.0.2 AS gocrypt
 
@@ -16,6 +17,7 @@ COPY resources /
 COPY --from=alpine /etc/ssl /etc/ssl
 COPY --from=gitlab-backup-image --chown=1000:1000 /usr/local/bin/gitlab-backup /usr/bin/gitlab-backup
 COPY --from=gocrypt /gocrypt /usr/bin/gocrypt
+COPY --from=alpine /usr/bin/age /usr/bin/age
 COPY gitlab-backup2s3 /usr/bin/gitlab-backup2s3
 # WORKDIR /usr/bin
 USER gitlab-backup
