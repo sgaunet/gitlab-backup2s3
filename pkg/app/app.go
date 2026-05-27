@@ -90,12 +90,13 @@ func (a *App) handleCommandOutput(cmd *exec.Cmd, stderr, stdout io.ReadCloser) e
 	go a.processStderr(stderr, &wg, &stderrErr)
 	go a.processStdout(stdout, &wg, &stdoutErr)
 
+	// Wait for output readers to finish before cmd.Wait, which closes the pipes.
+	wg.Wait()
+
 	err := cmd.Wait()
 	if err != nil {
 		return fmt.Errorf("error waiting for command: %w", err)
 	}
-
-	wg.Wait()
 
 	if stderrErr != nil {
 		return stderrErr
