@@ -3,7 +3,7 @@ RUN apk add --no-cache age
 
 FROM ghcr.io/sgaunet/gocrypt:2.0.2 AS gocrypt
 
-FROM ghcr.io/sgaunet/gitlab-backup:1.18.2 AS gitlab-backup-image
+FROM ghcr.io/sgaunet/gitlab-backup:1.19.0 AS gitlab-backup-image
 
 FROM scratch
 LABEL org.opencontainers.image.authors="sgaunet"

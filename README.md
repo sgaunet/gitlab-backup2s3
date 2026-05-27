@@ -15,12 +15,41 @@ gitlab-backup2s3 is an enhanced docker image to export gitlab projects, encrypt 
 
 You can use the binary but it will need some prerequisites :
 
-* [gocrypt](https://github.com/sgaunet/gocrypt) >= v2.0.0 (if you like to encrypt archives with AES)
-* [gitlab-backup](https://github.com/sgaunet/gitlab-backup) >= v1.0.0
+* [gitlab-backup](https://github.com/sgaunet/gitlab-backup) >= v1.19.0 (native [age](https://age-encryption.org) encryption built in)
+* [gocrypt](https://github.com/sgaunet/gocrypt) >= v2.0.0 (legacy AES encryption — kept for backward compatibility)
+
+## Archive encryption
+
+Two encryption options are bundled in the image:
+
+* **[age](https://age-encryption.org) (recommended)** — public-key encryption built natively into
+  `gitlab-backup` since v1.19.0. Recipient public keys are configured via env vars; the matching
+  private identity stays offline and is only used for restore. No shell required, no hook needed.
+  See the [Configuration](#configuration) section below.
+* **[gocrypt](https://github.com/sgaunet/gocrypt)** — symmetric AES, invoked as a `POSTBACKUP` hook.
+  Still supported for existing setups.
+
+The `age` CLI is also bundled in the image so you can compose custom `POSTBACKUP` pipelines if
+needed, but for most users the native env-var configuration is enough.
 
 ## Restoring a backup
 
-The [gitlab-backup](https://github.com/sgaunet/gitlab-backup) project also ships a companion binary named **`gitlab-restore`**, which restores a GitLab project backup from the archive produced by `gitlab-backup` back into a GitLab instance. Use it when you need to recover a project from an archive previously stored in S3 by `gitlab-backup2s3` (decrypt it first with `gocrypt` if it was encrypted).
+The [gitlab-backup](https://github.com/sgaunet/gitlab-backup) project ships a companion binary
+named **`gitlab-restore`**, which restores a GitLab project backup from the archive produced by
+`gitlab-backup` back into a GitLab instance.
+
+If the archive was encrypted, decrypt it locally first:
+
+```bash
+# age (recommended) — uses your offline private identity:
+age -d -i backup-key.txt -o myproject-42.tar.gz s3-downloaded.tar.gz
+
+# gocrypt (legacy):
+gocrypt dec --i archive.tar.gz
+```
+
+Then pass the plaintext archive to `gitlab-restore --archive ...`. `gitlab-restore` does not
+decrypt automatically.
 
 ## Version Compatibility
 
@@ -40,14 +69,13 @@ Version 1 of **gitlab-backup2s3** is compatible with version 1 of **gocrypt**.
 
 It needs some environement variables to run:
 
-* GOCRYPT_KEY (if you want to encrypt archives)
-* POSTBACKUP (if you want to encrypt archives, set it to: gocrypt enc --i %INPUTFILE% )
+**GitLab / target selection**
 * GITLAB_TOKEN
 * GITALB_URI (if the endpoint differs from https://gitlab.com)
 * GITLABPROJECTID: id of the project to export
 * GITLABGROUPID: id of the group to export (will export all sub projects)
-* DEBUGLEVEL: info by default
-* TMPDIR: /tmp by default
+
+**Storage**
 * LOCALPATH: if you want to export archives locally (let empty if you prefer to copy archives to s3)
 * S3ENDPOINT: Example https://s3.eu-west-3.amazonaws.com   or http://localhost:9090 for a local minio instance
 * S3REGION: region of s3
@@ -55,7 +83,38 @@ It needs some environement variables to run:
 * S3BUCKETPATH
 * AWS_SECRET_ACCESS_KEY: not mandatory if you associate an IAM role to the pod or ec2
 * AWS_ACCESS_KEY_ID: not mandatory too
+
+**Encryption — age (recommended)**
+* AGE_RECIPIENTS: comma-separated public keys (e.g. `age1ql3z7hjy54pw3...,ssh-ed25519 AAAA... user@host`)
+* AGE_RECIPIENTS_FILE: alternative — path to a recipients file (one per line, `#` comments allowed)
+* AGE_ARMOR: `true` for ASCII-armored output (`false` by default, produces binary `.age` payload)
+
+Encryption is enabled as soon as `AGE_RECIPIENTS` *or* `AGE_RECIPIENTS_FILE` is set. The archive
+filename is preserved (still ends in `.tar.gz`) — only the bytes change.
+
+**Encryption — gocrypt (legacy)**
+* GOCRYPT_KEY (if you want to encrypt archives with AES)
+* POSTBACKUP (if you want to encrypt archives, set it to: `gocrypt enc --i %INPUTFILE%`)
+
+**Misc**
+* DEBUGLEVEL: info by default
+* TMPDIR: /tmp by default
 * EXPORT_TIMEOUT_MIN: default timeout export in minutes (default "10")
+
+### Generating an age key pair
+
+Use the `age-keygen` CLI from any [age release](https://github.com/FiloSottile/age/releases),
+**run outside the cluster** so the private key stays offline:
+
+```bash
+age-keygen -o backup-key.txt
+# backup-key.txt contains:
+#   # public key: age1ql3z7hjy54pw3hyww5ayyfg7zqgvc7w3j2elw8zmrj2kg5sfn9aqmcac8p
+#   AGE-SECRET-KEY-1...
+```
+
+Store `backup-key.txt` in a vault / password manager. Copy the `# public key:` line into
+`AGE_RECIPIENTS`. For multi-recipient setups (primary + offline recovery), list both keys.
 
 # Development
 

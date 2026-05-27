@@ -4,20 +4,29 @@ metadata:
   name: cm-gitlab-backup
   namespace: backup
 data:
-  # GOCRYPT_KEY: "abcdefgh12345678"
   # env vars for gitlab-backup
-  AWS_ACCESS_KEY_ID string: ""
-  AWS_SECRET_ACCESS_KEY string: ""
+  AWS_ACCESS_KEY_ID: ""
+  AWS_SECRET_ACCESS_KEY: ""
   GITLABGROUPID: "123456789"
   GITLABPROJECTID: "0"
   GITLAB_TOKEN: "..."
   # GITLAB_URI: "https://gitlab.com"
   # LOCALPATH: ""
-  # POSTBACKUP: 'gocrypt enc --i %INPUTFILE%'
-  # PREBACKUP: ""
   S3BUCKETNAME: ""
   S3BUCKETPATH: ""
   S3ENDPOINT: ""
   S3REGION: ""
   # TMPDIR: "/tmp"
+  # --- Archive encryption (pick ONE) -------------------------------------
+  # Native age encryption (recommended, since gitlab-backup v1.19.0).
+  # Recipients are PUBLIC keys; the matching private identity stays offline.
+  # AGE_RECIPIENTS: "age1ql3z7hjy54pw3hyww5ayyfg7zqgvc7w3j2elw8zmrj2kg5sfn9aqmcac8p"
+  # AGE_ARMOR: "false"
+  # Or mount a recipients file from another ConfigMap/Secret and point to it:
+  # AGE_RECIPIENTS_FILE: "/etc/age/recipients.txt"
+  #
+  # Legacy gocrypt (AES, symmetric):
+  # GOCRYPT_KEY: "abcdefgh12345678"
+  # POSTBACKUP: 'gocrypt enc --i %INPUTFILE%'
+  # PREBACKUP: ""
 
