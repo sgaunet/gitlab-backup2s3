@@ -1,3 +1,4 @@
 /dist
 /gitlab-backup2s3
 /.task
+/govulncheck.sarif
