@@ -1,7 +1,7 @@
 FROM alpine:3.24.2 AS alpine
 RUN apk add --no-cache age
 
-FROM ghcr.io/sgaunet/gocrypt:2.0.2 AS gocrypt
+FROM ghcr.io/sgaunet/gocrypt:2.0.3 AS gocrypt
 
 FROM ghcr.io/sgaunet/gitlab-backup:1.20.1 AS gitlab-backup-image
 
