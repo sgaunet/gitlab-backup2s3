@@ -1,4 +1,4 @@
-FROM alpine:3.24.2 AS alpine
+FROM alpine:3.24.3 AS alpine
 RUN apk add --no-cache age
 
 FROM ghcr.io/sgaunet/gocrypt:2.0.3 AS gocrypt
